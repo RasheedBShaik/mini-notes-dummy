@@ -9,7 +9,7 @@ const MONGO_URI = process.env.mongoURI || '';
 // use cors
 const allowedOrigins = [
     'http://localhost:3000', // Allow local development
-    'https://mini-notes-app-rose.vercel.app' // Replace with your actual Vercel URL
+    'https://mini-notes-dummy.vercel.app/' // Replace with your actual Vercel URL
 ];
 app.use(cors({
     origin: (origin, callback) => {
