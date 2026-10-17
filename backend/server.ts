@@ -79,12 +79,35 @@ const Note = mongoose.model<INote>('Note', noteSchema);
 // --- ROUTES ---
 
 // GET: Fetch all notes (Sorted by newest first)
+// app.get('/api/notes', async (_req: Request, res: Response) => {
+//   try {
+//     const notes = await Note.find().sort({ createdAt: -1 }).lean();
+//     res.status(200).json(notes);
+//   } catch (err: any) {
+//     res.status(500).json({ error: 'Failed to fetch notes' });
+//   }
+// });
+
 app.get('/api/notes', async (_req: Request, res: Response) => {
+  console.log('GET /api/notes received');
+
   try {
-    const notes = await Note.find().sort({ createdAt: -1 }).lean();
-    res.status(200).json(notes);
-  } catch (err: any) {
-    res.status(500).json({ error: 'Failed to fetch notes' });
+    const notes = await Note.find()
+      .sort({ createdAt: -1 })
+      .lean();
+
+    console.log(`Fetched ${notes.length} notes`);
+
+    return res.status(200).json(notes);
+  } catch (err) {
+    console.error('GET /api/notes failed:', err);
+
+    return res.status(500).json({
+      error: 'Failed to fetch notes',
+      details: err instanceof Error
+        ? err.message
+        : String(err),
+    });
   }
 });
 
