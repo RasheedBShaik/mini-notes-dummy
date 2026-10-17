@@ -20,7 +20,7 @@ if (!MONGO_URI) {
 // --- MIDDLEWARE ---
 const allowedOrigins = [
   'http://localhost:3000',
-  'https://mini-notes-app-rose.vercel.app'
+  'https://mini-notes-dummy.vercel.app/'
 ];
 
 app.use(cors({
