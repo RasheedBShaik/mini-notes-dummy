@@ -38,19 +38,44 @@ export default function Home() {
 
   const API_URL = "https://mini-notes-dummy.onrender.com/api/notes";
 
-  const fetchNotes = async () => {
-    setIsLoading(true);
-    try {
-      const res = await fetch(API_URL);
-      const data = await res.json();
-      setNotes(data);
-    } catch (error) {
-      console.error("Failed to fetch:", error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
+  // const fetchNotes = async () => {
+  //   setIsLoading(true);
+  //   try {
+  //     const res = await fetch(API_URL);
+  //     const data = await res.json();
+  //     setNotes(data);
+  //   } catch (error) {
+  //     console.error("Failed to fetch:", error);
+  //   } finally {
+  //     setIsLoading(false);
+  //   }
+  // };
 
+  const fetchNotes = async () => {
+  setIsLoading(true);
+
+  try {
+    const res = await fetch(API_URL);
+
+    if (!res.ok) {
+      throw new Error(
+        `API request failed: ${res.status} ${res.statusText}`
+      );
+    }
+
+    const data = await res.json();
+
+    if (!Array.isArray(data)) {
+      throw new Error("API did not return a notes array");
+    }
+
+    setNotes(data);
+  } catch (error) {
+    console.error("Failed to fetch notes:", error);
+  } finally {
+    setIsLoading(false);
+  }
+};
   useEffect(() => { fetchNotes(); }, []);
 
   const filteredNotes = useMemo(() => {
