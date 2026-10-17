@@ -36,7 +36,7 @@ export default function Home() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [justSubmitted, setJustSubmitted] = useState(false);
 
-  const API_URL = "https://mini-notes-dummy.onrender.com";
+  const API_URL = "https://mini-notes-dummy.onrender.com/api/notes";
 
   // const fetchNotes = async () => {
   //   setIsLoading(true);
